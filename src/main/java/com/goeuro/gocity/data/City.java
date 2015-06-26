@@ -10,7 +10,7 @@ import lombok.Data;
 public class City {
 	
 	@JsonProperty("_id")
-	private int id;
+	private Integer id;
 	private String name;
 	private String type;//TODO:this could be an Enum if I know each possible value
 	@JsonProperty("geo_position")

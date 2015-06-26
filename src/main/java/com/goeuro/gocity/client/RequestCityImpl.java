@@ -1,5 +1,6 @@
 package com.goeuro.gocity.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -17,7 +18,7 @@ import com.goeuro.gocity.data.City;
 public class RequestCityImpl implements RequestCity{
 	
 	@Getter
-	private static String URL = "http://api.goeuro.com/api/v2/position/suggest/en/Berlin";
+	private static String URL = "http://api.goeuro.com/api/v2/position/suggest/en/";//TODO:This should be placed on properties file.
 	@Getter@Setter
 	private  RestTemplate restTemplate = new RestTemplate();
 	
@@ -25,11 +26,10 @@ public class RequestCityImpl implements RequestCity{
 		ParameterizedTypeReference<List<City>> responseType = new ParameterizedTypeReference<List<City>>() {
 		};
 		ResponseEntity<List<City>> result = restTemplate.exchange(
-				URL,
+				new StringBuilder(URL).append(city).toString(),
 				HttpMethod.GET, null, responseType);
 
 		List<City> cityList = result.getBody();
-		log.debug(new StringBuilder("Found ").append(cityList.size()).append(" cities"));
-		return cityList;		
+		return (cityList!=null)? cityList : new ArrayList<City>();
 	}
 }

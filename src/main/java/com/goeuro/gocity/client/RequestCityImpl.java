@@ -22,14 +22,26 @@ public class RequestCityImpl implements RequestCity{
 	@Getter@Setter
 	private  RestTemplate restTemplate = new RestTemplate();
 	
-	public List<City> request(String city){
-		ParameterizedTypeReference<List<City>> responseType = new ParameterizedTypeReference<List<City>>() {
-		};
-		ResponseEntity<List<City>> result = restTemplate.exchange(
-				new StringBuilder(URL).append(city).toString(),
-				HttpMethod.GET, null, responseType);
+	public List<City> request(String city) throws RequestCityException {
+		try {
+			ParameterizedTypeReference<List<City>> responseType = new ParameterizedTypeReference<List<City>>() {
+			};
+			ResponseEntity<List<City>> result = restTemplate.exchange(
+					new StringBuilder(URL).append(city).toString(),
+					HttpMethod.GET, null, responseType);
 
-		List<City> cityList = result.getBody();
-		return (cityList!=null)? cityList : new ArrayList<City>();
+			List<City> cityList = result.getBody();
+			if (cityList == null) {
+				log.warn("No city found: " + city);
+				return new ArrayList<City>();
+			} else {
+				log.debug("Found: " + cityList.size() + " cities");
+				return cityList;
+			}
+
+		} catch (Exception e) {
+			throw new RequestCityException("API request not succeded", e);
+		}
+
 	}
 }

@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.goeuro.gocity.data.City;
@@ -37,6 +35,7 @@ public class ResquestCityImplTest {
 		Assert.assertTrue(cities.size() == 2);
 		//{\"_id\":376217,\"key\":xxx,\"name\":\"Berlin\",\"fullName\":\"Berlin, Germany\",\"iata_airport_code\":AAA,\"type\":\"location\",\"country\":\"Germany\",\"geo_position\":{\"latitude\":52.52437,\"longitude\":13.41053},\"locationId\":8384,\"inEurope\":true,\"countryCode\":\"DE\",\"coreCountry\":true,\"distance\":null}
 		for (City city : cities) {
+			Assert.assertEquals(0, new Integer(376217).compareTo(city.getId()));
 			Assert.assertEquals("Berlin", city.getName());
 			Assert.assertEquals("location", city.getType());
 			Assert.assertNotNull(city.getGeoPosition());
@@ -45,7 +44,7 @@ public class ResquestCityImplTest {
 		}
 	}
 	
-	@Test(expected = HttpClientErrorException.class)
+	@Test(expected = RequestCityException.class)
 	public void test400() throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		MockRestServiceServer mockServer = MockRestServiceServer.createServer(restTemplate);
@@ -56,7 +55,7 @@ public class ResquestCityImplTest {
 		requestCityImpl.request("Foo");
 	}
 	
-	@Test(expected = HttpServerErrorException.class)
+	@Test(expected = RequestCityException.class)
 	public void testWithError() throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		MockRestServiceServer mockServer = MockRestServiceServer.createServer(restTemplate);

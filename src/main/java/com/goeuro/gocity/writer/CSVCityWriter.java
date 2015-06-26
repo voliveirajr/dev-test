@@ -17,7 +17,7 @@ public class CSVCityWriter implements CityWriter{
 	private Writer writer = null;
 
 	@Override
-	public void createFile(List<City> cityList) throws CityWriterException {
+	public void createFile(String str, List<City> cityList) throws CityWriterException {
 		
 		if(cityList == null){
 			log.warn("Null list, nothing to print");
@@ -25,7 +25,7 @@ public class CSVCityWriter implements CityWriter{
 		
 		try {
 			if (writer == null) {//for mock purposes
-				writer = new PrintWriter("cities.csv", "UTF-8");
+				writer = new PrintWriter(str+".csv", "UTF-8");
 			}			
 			for (City city : cityList) {
 				log.debug("printing city:"+city.getName());

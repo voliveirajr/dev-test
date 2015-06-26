@@ -38,7 +38,6 @@ public class RequestCityImpl implements RequestCity{
 				log.debug("Found: " + cityList.size() + " cities");
 				return cityList;
 			}
-
 		} catch (Exception e) {
 			throw new RequestCityException("API request not succeded", e);
 		}

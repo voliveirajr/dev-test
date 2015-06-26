@@ -23,7 +23,7 @@ public class CSVCityWriterTest {
 		PrintWriter printWriter = PowerMockito.mock(PrintWriter.class);
 		CSVCityWriter csvCityWriter = new CSVCityWriter();
 		csvCityWriter.setWriter(printWriter);		
-		csvCityWriter.createFile(new ArrayList<City>());
+		csvCityWriter.createFile("Foo", new ArrayList<City>());
 		
 		Assert.assertTrue(true);		
 	}
@@ -45,7 +45,7 @@ public class CSVCityWriterTest {
 		
 		CSVCityWriter csvCityWriter = new CSVCityWriter();
 		csvCityWriter.setWriter(printWriter);		
-		csvCityWriter.createFile(Arrays.asList(city));
+		csvCityWriter.createFile("Foo", Arrays.asList(city));
 		
 		Assert.assertTrue(true);		
 	}

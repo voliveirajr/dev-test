@@ -33,13 +33,13 @@ public class GoCityApp implements CommandLineRunner {
 	public void run(String... arg0) throws Exception {
 		
 		requestCity = new RequestCityImpl();
-		cityWriter = new CSVCityWriter();
 		
 		for (String key : arg0) {
 			log.debug("received search key "+key);
 			try {
 				List<City> cityList = requestCity.request(key);
 				log.debug("city list retrieved");
+				cityWriter = new CSVCityWriter(); 
 				cityWriter.createFile(key, cityList);
 				log.debug("file created");
 			} catch (RequestCityException e) {

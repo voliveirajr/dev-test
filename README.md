@@ -1,3 +1,38 @@
+Implementation Test
+===================
+This is a fork implementation for a proposed problem described in the sections below.
+This command line tool is useful also as an example of implementations using SpringBoot for self-contained applications, Jackson, Powermock and a rest client using Spring Web.
+
+## Build
+As a Maven project to generate the final jar file you have to execute as following
+```
+mvn clean package
+```
+This will generate a snapshot version of jar with this pattern name
+GoEuroTest-[version]-SNAPSHOT.jar
+
+## Run
+A ready jar could be downloaded here:
+https://github.com/voliveirajr/dev-test/blob/master/GoEuroTest.jar
+
+By definition the command should be executed as
+```
+java -jar GoEuroTest.jar "CITY_NAME"
+```
+However is possible pass a list of cities as the following example
+```
+java -jar GoEuroTest.jar Berlin London Dublin Paris
+```
+This will generate a list of CSV files for each city, using the example above the execution will result the following files
+```
+Berlin.csv
+London.csv
+Dublin.csv
+Paris.csv
+```
+
+Following the given specifitation:
+
 Java Developer Test
 ===================
 
